@@ -1,5 +1,7 @@
+
 public class traduzioni 
 {
+    public static void main(String[] args) {}
 
     //Determina se una parola è femminile
     public static boolean femminile (String s) 
@@ -16,7 +18,6 @@ public class traduzioni
     s.concat(t)     //Concatenazione di s a t 
 
     */
-
     //Calcolare il lato più lungo di un foglio Ax
     public static final double s0 = Math.pow(2, 0.25);
     public static final double s1 = Math.pow(2, -0.25); 
@@ -55,8 +56,83 @@ public class traduzioni
             default: return 999;
         }
     }
+    
+    //-------------------------------------------------------------------------------------//
+    
+    //PRIMI COSTRUTTI DELLA PROGRAMMAZIONE IMPERATIVA
 
+    //Procedura per il massimo comune divisore
+    public static int mcd( int x, int y) 
+    {
+        while (x != y) 
+        {
+            if (x < y) 
+                y-=x;
+            else 
+                x-=y;
+        }
+        return x;
+    }
 
+    //Minimo comune multiplo
+    public static int mcm(int m, int n) 
+    {   
+        int x = m;
 
+        while ( x % n == 0) 
+        {
+            x += m;
+        }
+
+        return x;
+    }
+
+    //Verifica se un numero è primo
+    public static boolean isPrime(int n) 
+    {
+        if (n == 2) 
+            return true;
+        else if(n % 2 == 0)
+            return false;
+        else 
+        {
+            int a = 3;
+            while (a <= Math.sqrt(n)) 
+            {
+                if (n % a == 0) 
+                    return false;
+                n += 2;
+            }
+            return true;
+        }
+        
+    }
+
+    //Restituisce tutti i numeri primi fino ad un certo punto
+    public static void stampaPrimi(int n) 
+    {
+        for (int i = 2; i <= n; i++) 
+        {
+            if(isPrime(i))
+                System.out.println(i);
+        }
+    }
+
+    //Procedura UFO
+    public static int ufo(int x) 
+    {
+        int[] v = new int[x + 1];
+        v[1] = 1;
+        
+        for (int i = 0; i <= x; i++) 
+        {
+            if ( i % 2 == 0) 
+                v[i] = 2 * v[i/2] -1;
+            else
+                v[i] = 2 * v[i/2] +1;
+        }
+
+        return v[x];
+    }
 }
 
