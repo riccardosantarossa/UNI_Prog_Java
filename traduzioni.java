@@ -1,8 +1,7 @@
 
 public class traduzioni 
 {
-    public static void main(String[] args) {}
-
+    
     //Determina se una parola è femminile
     public static boolean femminile (String s) 
     {
@@ -165,7 +164,15 @@ public class traduzioni
 
            v[k+1] = x;
         }
+
+        System.out.println(v);
     }
 
+    public static void main(String[] args) 
+    {
+        int[] vett = new int[]{1, 7, 2, 4, 35};
+        
+        insertionSort(vett);
+    }
 }
 
