@@ -58,4 +58,26 @@ public class intSList
         return new intSList(n, this);
     }
 
+    //Implementazione del toString
+    public String toString()
+    {
+       
+       if(this.isNull())
+         return "'()";
+       else
+       {
+         String txt = "( ";
+         intSList r = this.cdr();
+
+         while (!r.isNull()) 
+         {
+            txt += ", " + r.car();
+            r = r.cdr();
+         }
+
+         return txt + " )";
+       }
+         
+    }
+
 }
