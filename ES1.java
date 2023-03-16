@@ -2,7 +2,6 @@ public class ES1
 {
      public static void main(String[] args) 
      {
-        
         //DEBUG DELLA PROCEDURA BTR SUCC
 
         //    String out = btrSucc("--++.-");
