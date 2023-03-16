@@ -2,16 +2,18 @@ public class ES1
 {
      public static void main(String[] args) 
      {
-        /* DEBUG DELLA PROCEDURA BTR SUCC
+        
+        //DEBUG DELLA PROCEDURA BTR SUCC
 
-            String out = btrSucc("--++.-");
-            System.out.println(out);
+        //    String out = btrSucc("--++.-");
+        //    System.out.println(out);
         
-        DEBUG DELLA PROCEDURA C1
+
+        //DEBUG DELLA PROCEDURA C1
         
-            String out = compl1("00111100");
-            System.out.println(out);
-        */
+        //    String out = compl1("00111100");
+        //    System.out.println(out);
+        
         
      }
 
