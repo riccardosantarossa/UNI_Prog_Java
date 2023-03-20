@@ -9,9 +9,13 @@ public class intSList
      * 
      */
 
-     private boolean empty;
-     private int first;
-     private intSList rest;
+     public static final intSList NULL_INTLIST = new intSList();
+
+     //Variabili di istanzaà6
+     private final boolean empty;
+     private final int first;
+     private final intSList rest;
+
 
 
      //Costruttore di lista vuota
@@ -58,7 +62,61 @@ public class intSList
         return new intSList(n, this);
     }
 
-    //Implementazione del toString
+    //Funzione LENGTH
+    public int length()
+    {
+      if(isNull())
+         return 0;
+      else
+         return 1 + this.cdr().length();
+    }
+
+    public boolean equals( intSList lst) 
+    {
+
+      if(lst == null)
+         return false; 
+      else if(lst.isNull())
+         return false;
+      else if (isNull())
+         return false;
+      else if( lst.car() == car())
+         return cdr().equals(lst.cdr());
+      else 
+         return false;
+    }
+
+    /*Funzione LIST-REF: esercizio
+    public int listRef()
+    {
+       
+    }*/
+
+    //Procedura APPEND
+    public intSList append( intSList lst)
+    {
+      if(isNull())
+         return lst;
+      else
+         return cdr().append(lst).cons(this.car());
+    }
+
+    //Procedura REVERSE
+    public intSList reverse(intSList lst) 
+    { 
+      return reverseREC( NULL_INTLIST);
+    }
+
+    //Procedura ricorsiva da usare in reverse
+    private intSList reverseREC(intSList lst) 
+    {
+       if(isNull())
+         return lst;
+      else
+         return cdr().reverseREC(lst.cons(car())); 
+    }
+
+   //Implementazione del toString
     public String toString()
     {
        
