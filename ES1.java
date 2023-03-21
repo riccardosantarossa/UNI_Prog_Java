@@ -6,8 +6,8 @@ public class ES1
      {
         //DEBUG DELLA PROCEDURA BTR SUCC
 
-        //    String out = btrSucc("--++.-");
-        //    System.out.println(out);
+            //String out = btrSucc("--++.-");
+            //System.out.println(out);
         
 
         //DEBUG DELLA PROCEDURA C1
