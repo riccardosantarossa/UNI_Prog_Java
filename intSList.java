@@ -1,3 +1,5 @@
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 public class intSList 
 {
     /*
@@ -89,19 +91,26 @@ public class intSList
     //Funzione LIST-REF: esercizio
     public int listRef(intSList lst, int n)
     {
-       int x = 0;
+        int index = 0;
+        int out = 0;
 
-       while(!lst.cdr().isNull)
-       {
-          if(lst.car() == x)
-            return x;
-          else 
+        if(n == lst.car())
+          return index;
+        else
+        {
+            intSList coda = lst.cdr();
+            while (!coda.isNull()) 
             {
-               x++;
-               listRef(lst.cdr(), n);
+               if(n == coda.car())
+                  out = index;
+               else
+               {
+                  index ++;
+                  coda = coda.cdr();
+               }
             }
-       }
-
+        }
+        return out;
     }
 
     //Procedura APPEND
@@ -116,7 +125,7 @@ public class intSList
     //Procedura REVERSE
     public intSList reverse(intSList lst) 
     { 
-      return reverseREC( NULL_INTLIST);
+      return reverseREC(NULL_INTLIST);
     }
 
     //Procedura ricorsiva da usare in reverse
