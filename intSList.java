@@ -86,11 +86,23 @@ public class intSList
          return false;
     }
 
-    /*Funzione LIST-REF: esercizio
-    public int listRef()
+    //Funzione LIST-REF: esercizio
+    public int listRef(intSList lst, int n)
     {
-       
-    }*/
+       int x = 0;
+
+       while(!lst.cdr().isNull)
+       {
+          if(lst.car() == x)
+            return x;
+          else 
+            {
+               x++;
+               listRef(lst.cdr(), n);
+            }
+       }
+
+    }
 
     //Procedura APPEND
     public intSList append( intSList lst)
