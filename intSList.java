@@ -1,4 +1,3 @@
-
 public class intSList 
 {
     /*
@@ -115,19 +114,21 @@ public class intSList
     }
 
     //Procedura REVERSE
-    public intSList reverse(intSList lst) 
+    public intSList reverse() 
     { 
-      return reverseREC(NULL_INTLIST);
+     
+      //Versione imperativa
+      intSList il = this;
+      intSList rl = NULL_INTLIST;
+
+      while(!il.isNull())
+      {
+         rl = rl.cons(il.car());
+         il = il.cdr();
+      }
+         return rl;
     }
 
-    //Procedura ricorsiva da usare in reverse
-    private intSList reverseREC(intSList lst) 
-    {
-       if(isNull())
-         return lst;
-      else
-         return cdr().reverseREC(lst.cons(car())); 
-    }
 
    //Implementazione del toString
     public String toString()
@@ -148,7 +149,5 @@ public class intSList
 
          return txt + " )";
        }
-         
     }
-
 }
