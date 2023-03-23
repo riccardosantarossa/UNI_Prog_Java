@@ -1,4 +1,3 @@
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 public class intSList 
 {
@@ -92,25 +91,18 @@ public class intSList
     public int listRef(intSList lst, int n)
     {
         int index = 0;
-        int out = 0;
 
-        if(n == lst.car())
-          return index;
-        else
+        while (!lst.isNull()) 
         {
-            intSList coda = lst.cdr();
-            while (!coda.isNull()) 
+            if(n == lst.car())
+               break;
+            else
             {
-               if(n == coda.car())
-                  out = index;
-               else
-               {
-                  index ++;
-                  coda = coda.cdr();
-               }
+               index ++;
+               lst = lst.cdr();
             }
         }
-        return out;
+        return index;
     }
 
     //Procedura APPEND
