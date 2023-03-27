@@ -65,16 +65,15 @@ public class tavolaRotonda
     }
 
 
-    //Crea la lista dei cavalieri
-    private static intSList creaList(int inf, int sup) 
-    {
-        if(inf>sup)
-            return intSList.NULL_INTLIST;
-        else 
-        {
-            intSList lst = creaList(inf+1, sup);
-            return lst.cons(inf);
-        }
-    }
+   //Crea la lista dei cavalieri
+   private static intSList creaList(int inf, int sup) 
+   {
+       intSList lst = intSList.NULL_INTLIST;
+
+       for(int i = sup; i>=inf; i --)
+           lst = lst.cons(i);
+
+       return lst;
+   }
 
 }

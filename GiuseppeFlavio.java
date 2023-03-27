@@ -13,8 +13,23 @@ public class GiuseppeFlavio
         return t.cavaliereConBrocca();
     }
 
+    //Metodo con tavola ottimizzata
+    public static int ottimoCavaliere(int n) 
+    {
+        tavolaOttimizzata t = new tavolaOttimizzata(n);
+
+        while (t.cavalieriRimasti() > 1) 
+        {
+            t = t.servi();
+            t = t.passa();
+        }
+
+        return t.cavaliereConBrocca();
+    }
+
     public static void main(String[] args) 
     {
-        System.out.println(ultimoCavaliere(9));
+        //System.out.println(ultimoCavaliere(100));
+        System.out.println(ottimoCavaliere(100));
     }
 }
