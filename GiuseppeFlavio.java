@@ -29,7 +29,7 @@ public class GiuseppeFlavio
 
     public static void main(String[] args) 
     {
-        //System.out.println(ultimoCavaliere(100));
-        System.out.println(ottimoCavaliere(100));
+        //System.out.println(ultimoCavaliere(10000));
+        System.out.println(ottimoCavaliere(10000));
     }
 }
