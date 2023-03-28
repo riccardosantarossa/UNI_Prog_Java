@@ -150,4 +150,17 @@ public class intSList
          return txt + " )";
        }
     }
+
+    public static intSList creaList(int inf, int soup)
+    {
+      intSList lsd = new intSList();
+       
+      for (int i = inf; i < soup; i++) 
+      {
+         lsd = lsd.cons(i);
+      }
+
+      return lsd;
+    }
+
 }
