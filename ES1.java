@@ -18,8 +18,7 @@ public class ES1
         
      }
 
-
-     public static String btrSucc( String btr) 
+     public String btrSucc( String btr) 
      {
         int n = btr.length();
         char lsb = btr.charAt(n-1);
