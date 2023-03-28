@@ -163,4 +163,11 @@ public class intSList
       return lsd;
     }
 
+
+    
+    public static void main(String[] args) 
+    {
+         //SPAZIO PER I TEST
+    }
+
 }
