@@ -1,20 +1,3 @@
-/*
-     *  board b              --> tipo dell'oggetto
-     * 
-     *  b = new board(n)     --> scacchiera vuota di n righe e n colonne   
-     * 
-     *  b.size()             --> ritorna la dimensione della scacchiera
-     * 
-     *  b.queensOn()         --> ritorna il numero delle regine presenti sulla scacchiera al momento
-     * 
-     *  b.underAttack(i,j)   --> dice se la casella indicata è protetta o meno, se lo è non posso mettere la regina
-     * 
-     *  b.addQueen(i,j)      --> aggiunge una regina nella casella indicata
-     * 
-     *  b.arrangement()      --> restituisce le caselle occupate dalle regine con coordinate es: "e4"
-     *           
-*/
-
 
 public class queens 
 {
@@ -24,6 +7,7 @@ public class queens
         return numCompletamenti(new Board());        
     }
 
+    //Restituisce il numero di possibili soluzioni
     private static int numCompletamenti(Board b)
     {
         int n = b.size();
@@ -47,11 +31,13 @@ public class queens
 
     }
 
+    //Da in output la lista delle soluzioni
     public static boardSList listaSoluzioni(int n) 
     {
         return numCompletamenti(new Board());        
     }
 
+    //Restituisce la lista di possibili soluzioni
     private static boardSList listaCompletamenti(Board b)
     {
         int n = b.size();
