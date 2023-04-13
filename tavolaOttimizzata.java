@@ -3,8 +3,8 @@ public class tavolaOttimizzata
     //ATTRIBUTI
     private int numero; 
     private int brocca;  //etichetta del cavaliere con la brocca
-    private intSList altri;
-    private intSList codaRovescia;
+    private SList<Integer> altri;
+    private SList<Integer>codaRovescia;
 
     //METODI
 
@@ -14,11 +14,11 @@ public class tavolaOttimizzata
         numero = n;
         brocca = 1;
         altri =  creaList(2, n);
-        codaRovescia = intSList.NULL_INTLIST;
+        codaRovescia = new SList<Integer>();
     }
 
     //Costruttore interno
-    private tavolaOttimizzata(int num, int bro, intSList alt, intSList cod)
+    private tavolaOttimizzata(int num, int bro, SList<Integer> alt, SList<Integer> cod)
     {
         numero = num;
         brocca = bro;
@@ -58,7 +58,7 @@ public class tavolaOttimizzata
         {
             if(altri.isNull())
             {
-                intSList lst = codaRovescia.cons(brocca).reverse();
+                SList<Integer> lst = codaRovescia.cons(brocca).reverse();
                 return new tavolaOttimizzata(numero, lst.car(), lst.cdr(), intSList.NULL_INTLIST);
             }
             else
@@ -71,9 +71,9 @@ public class tavolaOttimizzata
 
 
     //Crea la lista dei cavalieri
-    private static intSList creaList(int inf, int sup) 
+    private static SList<Integer> creaList(int inf, int sup) 
     {
-        intSList lst = intSList.NULL_INTLIST;
+        SList<Integer> lst = new SList<Integer>();
 
         for(int i = sup; i>=inf; i --)
             lst = lst.cons(i);

@@ -2,8 +2,8 @@ public class RoundTable {
 
     private int numero; 
     private int brocca;  //etichetta del cavaliere con la brocca
-    private intSList altri;
-    private intSList codaRovescia;
+    private SList<Integer> altri;
+    private SList<Integer> codaRovescia;
 
     //METODI
 
@@ -12,11 +12,11 @@ public class RoundTable {
     {
         numero = n;
         brocca = 1;
-        altri =  intSList.creaList(2, n);
-        codaRovescia = intSList.NULL_INTLIST;
+        altri =  SList.creaList(2, n);
+        codaRovescia = new SList<Integer>();
     }
 
-    private RoundTable(int num, int bro, intSList alt, intSList cod)
+    private RoundTable(int num, int bro, SList<Integer> alt, SList<Integer> cod)
     {
         numero = num;
         brocca = bro;
@@ -30,9 +30,9 @@ public class RoundTable {
     }
 
     //Controlla chi ha la brocca
-    public intSList servingKnights() 
+    public SList<Integer> servingKnights() 
     {
-        intSList ls = intSList.NULL_INTLIST;
+        SList<Integer> ls = new SList<Integer>();
         ls.cons(brocca);
         ls.cons(altri.car());
         return ls.reverse();
@@ -40,7 +40,7 @@ public class RoundTable {
 
     public RoundTable serveNeighbour() 
     {
-        intSList ls = intSList.NULL_INTLIST;
+        SList<Integer> ls = new SList<Integer>();
         ls.cons(brocca);
         ls.cons(altri.car());
         if(numero > 2)
@@ -63,7 +63,7 @@ public class RoundTable {
         {
             if(altri.isNull())
             {
-                intSList lst = codaRovescia.cons(brocca).reverse();
+                SList<Integer> lst = codaRovescia.cons(brocca).reverse();
                 return new RoundTable(numero, lst.car(), lst.cdr(), intSList.NULL_INTLIST);
             }
             else

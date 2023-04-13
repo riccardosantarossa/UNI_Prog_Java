@@ -32,24 +32,23 @@ public class queens
     }
 
     //Da in output la lista delle soluzioni
-    public static boardSList listaSoluzioni(int n) 
+    public static SList<Board> listaSoluzioni(int n) 
     {
         return numCompletamenti(new Board());        
     }
 
     //Restituisce la lista di possibili soluzioni
-    private static boardSList listaCompletamenti(Board b)
+    private static SList<Board> listaCompletamenti(Board b)
     {
         int n = b.size();
         int numQueens = b.queensOn();
        
-
         if( numQueens == n)
             return boardSList.NULL_BOARDLIST.cons(b);
         else
         {
             int i = numQueens + 1;
-            boardSList lst = boardSList.NULL_BOARDLIST;
+            SList<Board> lst = new SList<Board>();
 
             for (int j = 1; j < n; j++) 
             {
