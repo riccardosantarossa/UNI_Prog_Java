@@ -13,7 +13,7 @@ public class tavolaRotonda
     //ATTRIBUTI
     private int numero; 
     private int brocca;  //etichetta del cavaliere con la brocca
-    private intSList altri;
+    private SList<Integer> altri;
 
     //METODI
 
@@ -26,7 +26,7 @@ public class tavolaRotonda
     }
 
     //Costruttore interno
-    private tavolaRotonda(int num, int bro, intSList alt)
+    private tavolaRotonda(int num, int bro, SList<Integer> alt)
     {
         numero = num;
         brocca = bro;
@@ -56,7 +56,7 @@ public class tavolaRotonda
     {
         if(numero > 1)
         {
-            intSList lst = intSList.NULL_INTLIST.cons(brocca);
+            SList<Integer> lst = new SList<Integer>().cons(brocca);
             return new tavolaRotonda(numero, altri.car(), altri.cdr().append(lst));
         }
         else 
@@ -66,9 +66,9 @@ public class tavolaRotonda
 
 
    //Crea la lista dei cavalieri
-   private static intSList creaList(int inf, int sup) 
+   private static SList<Integer> creaList(int inf, int sup) 
    {
-       intSList lst = intSList.NULL_INTLIST;
+       SList<Integer> lst = new SList<Integer>();
 
        for(int i = sup; i>=inf; i --)
            lst = lst.cons(i);
