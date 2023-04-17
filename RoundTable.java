@@ -46,7 +46,7 @@ public class RoundTable {
         if(numero > 2)
         {
             if(altri.isNull())
-                return new RoundTable(numero-1, brocca, codaRovescia.reverse().cdr(), intSList.NULL_INTLIST);
+                return new RoundTable(numero-1, brocca, codaRovescia.reverse().cdr(), new SList<Integer>());
             else
                 return new RoundTable(numero-1, brocca, ls.append(altri.cdr().cdr()), codaRovescia);
         }
@@ -64,7 +64,7 @@ public class RoundTable {
             if(altri.isNull())
             {
                 SList<Integer> lst = codaRovescia.cons(brocca).reverse();
-                return new RoundTable(numero, lst.car(), lst.cdr(), intSList.NULL_INTLIST);
+                return new RoundTable(numero, lst.car(), lst.cdr(), new SList<Integer>());
             }
             else
                 return new RoundTable(numero, altri.cdr().cdr().cdr().car(), altri.cdr(), codaRovescia.cons(brocca));
