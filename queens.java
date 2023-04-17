@@ -4,7 +4,7 @@ public class queens
     //Da in output il numero delle soluzioni
     public static int numSoluzioni(int n) 
     {
-        return numCompletamenti(new Board());        
+        return numCompletamenti(new Board(n));        
     }
 
     //Restituisce il numero di possibili soluzioni
@@ -34,7 +34,7 @@ public class queens
     //Da in output la lista delle soluzioni
     public static SList<Board> listaSoluzioni(int n) 
     {
-        return numCompletamenti(new Board());        
+        return listaCompletamenti(new Board(n));        
     }
 
     //Restituisce la lista di possibili soluzioni
@@ -44,7 +44,7 @@ public class queens
         int numQueens = b.queensOn();
        
         if( numQueens == n)
-            return boardSList.NULL_BOARDLIST.cons(b);
+            return new SList<Board>().cons(b);
         else
         {
             int i = numQueens + 1;
