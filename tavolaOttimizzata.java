@@ -43,7 +43,7 @@ public class tavolaOttimizzata
         if(numero > 1)
         {
             if(altri.isNull())
-                return new tavolaOttimizzata(numero-1, brocca, codaRovescia.reverse().cdr(), intSList.NULL_INTLIST);
+                return new tavolaOttimizzata(numero-1, brocca, codaRovescia.reverse().cdr(), new SList<Integer>());
             else
                 return new tavolaOttimizzata(numero-1, brocca, altri.cdr(), codaRovescia);
         }
@@ -59,7 +59,7 @@ public class tavolaOttimizzata
             if(altri.isNull())
             {
                 SList<Integer> lst = codaRovescia.cons(brocca).reverse();
-                return new tavolaOttimizzata(numero, lst.car(), lst.cdr(), intSList.NULL_INTLIST);
+                return new tavolaOttimizzata(numero, lst.car(), lst.cdr(), new SList<Integer>());
             }
             else
                 return new tavolaOttimizzata(numero, altri.car(), altri.cdr(), codaRovescia.cons(brocca));
