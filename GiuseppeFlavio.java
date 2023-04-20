@@ -33,7 +33,7 @@ public class GiuseppeFlavio
     }
 
     //Metodo con classe RoundTable
-    public static intSList dueCavalieri(int n) 
+    public static SList<Integer> dueCavalieri(int n) 
     {
         RoundTable t = new RoundTable(n);
 
