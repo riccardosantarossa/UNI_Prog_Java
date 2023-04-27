@@ -209,7 +209,7 @@ public class Memoization
         {
             for (l = 1; l <= n; l++) 
             {
-                if(u.charAt(m-l) == v.charAt(n-k))
+                if(u.charAt(m-k) == v.charAt(n-l))
                     mem[k][l] = 1 + mem[k-1][l-1];
                 else
                     mem[k][l] = Math.max(mem[k-1][l], mem[k][l-1]);
@@ -220,6 +220,123 @@ public class Memoization
     }
 
 
+    //Esempio di sottosequenza con DP
+    public static String lcsDP(String u, String v) 
+    {
+        int m = u.length(), n = v.length();
+        int k,l;
+        
+        int[][] mem = new int[m+1][n+1];
+
+        for (l = 0; l < n; l++) 
+            mem[0][l] = 0;
+
+        for (k = 0; k < m; k++) 
+            mem[k][0] = 0;
+
+        for (k = 1; k <= m; k++) 
+        {
+            for (l = 1; l <= n; l++) 
+            {
+                if(u.charAt(m-k) == v.charAt(n-l))
+                    mem[k][l] = 1 + mem[k-1][l-1];
+                else
+                    mem[k][l] = Math.max(mem[k-1][l], mem[k][l-1]);
+            }
+        }
+
+        String s = "";
+
+        int i = m, j = n;
+
+        while (mem[i][j] > 0) 
+        {
+            if(u.charAt(m-i) == v.charAt(n-j))
+            {
+                s += u.charAt(m-i);
+                i--;
+                j--;
+            }
+            else if(mem[i-1][j] < mem[i][j-1])
+                j--;
+            else if(mem[i-1][j] > mem[i][j-1])
+                i--;
+            else if (Math.random() < 0.5)
+                j--;
+            else 
+                i--;
+        }
+
+        return s;
+    }
+
+    //---------------------------------------------------------------------------------------------//
+
+    //Stirling NORMALE
+    public static long stirling(int n, int k) 
+    {
+        if(k==1 || k==n)
+            return 1;
+        else
+            return stirling(n-1, k-1) + k*stirling(n-1, k); 
+    }
+
+    //Numeri di stirling con memoization
+    public static long stirlingMem(int n, int k)
+    {
+        long[][] mem = new long [n+1][];
+
+        for (int i = 0; i <= n; i++) 
+        {
+            int x = Math.min(i, k);
+            mem[i] = new long[x+1];
+
+            for (int j = 1; j <= x; j++) 
+            {
+                mem[i][j] = UNKNOWN;
+            }
+        }
+
+        return stirlRec(n, k, mem);
+    } 
+
+    //Ricorsiva per stirling
+    private static long stirlRec(int n, int k, long mem[][]) 
+    {
+        if(mem[n][k] == UNKNOWN)
+        {
+            if(k==1 || k==n)
+                mem[n][k] = 1;
+            else
+                mem[n][k] = stirlRec(n-1, k-1, mem) + k * stirlRec(n-1, k, mem); 
+        }
+
+        return mem[n][k];
+    }
+
+    //Stirling con dynamic programming
+    public static long stirlingDP(int n, int k)
+    {
+        long[][] mem = new long [n+1][];
+
+        for (int i = 0; i <= n; i++) 
+        {
+            int x = Math.min(i, k);
+            mem[i] = new long[x+1];
+
+            mem[i][1] = 1;
+
+            for (int j = 2; j < x; j++) 
+            {
+                mem[i][j] = mem[i-1][j] + j * mem[i][j-1]; 
+            }
+
+            mem[i][x] = ( x==i ) ? 1 : mem[i-1][x-1] + x * mem[i-1][x];
+        }
+
+        return mem[n][k];
+    } 
+
     //---------------------------------------------------------------------------------------------//
 
      //SPAZIO PER I TEST    
@@ -227,7 +344,7 @@ public class Memoization
      {
          //System.out.println(fib(4));
          //System.out.println(manhM(20, 20));
-         System.out.println(llcsDP("arto", "atrio"));
+         System.out.println(lcsDP("arto", "atrio"));
      }
 
 }
