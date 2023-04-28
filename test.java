@@ -118,7 +118,7 @@ public class Queens {
     
       //int n = Integer.parseInt( args[0] );
       
-      System.out.println( numberOfSolutions(2) );
+      System.out.println( numberOfSolutions(4));
     }
   
   

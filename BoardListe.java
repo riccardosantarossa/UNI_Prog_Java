@@ -55,7 +55,7 @@ public class BoardListe
 
     public boolean sottoAttacco(int i, int j)
     {
-        if(lstRighe.isNull() || lstColonne.isNull() || lstDiagAsc.isNull() || lstDiagDesc.isNull())
+        if(lstRighe.vuoto|| lstColonne.vuoto || lstDiagAsc.vuoto|| lstDiagDesc.vuoto)
             return false;
 
         else if(i == lstRighe.car() || j == lstColonne.car() || i+j == lstDiagAsc.car() || i-j == lstDiagDesc.car())
@@ -63,10 +63,10 @@ public class BoardListe
         
         else
         {
-            lstRighe.cons(i);
+            /*lstRighe.cons(i);
             lstColonne.cons(j);
             lstDiagAsc.cons(i+j);
-            lstDiagDesc.cons(i-j);
+            lstDiagDesc.cons(i-j);*/
             return false;
         }
             
@@ -77,10 +77,10 @@ public class BoardListe
         return new BoardListe
         (  dimScacchiera,
            numRegine+1,
-           lstRighe,
-           lstColonne, 
-           lstDiagAsc, 
-           lstDiagDesc, 
+           lstRighe.cons(i),
+           lstColonne.cons(j),
+           lstDiagAsc.cons(i+j),
+           lstDiagDesc.cons(i-j),
            config
         );
     }
@@ -96,5 +96,43 @@ public class BoardListe
     {
         return "[" + arrangement() + "]";
     }
+
+
+
+    //------------------------------------------------------------------------------------------------------------//
+    private static int numberOfCompletions( BoardListe b ) {
+    
+        int n = b.size();
+        int q = b.queensOn();
+        
+        if ( q == n ) {
+        
+          return 1;
+        
+        } else {
+        
+          int i = q + 1;
+          int count = 0;
+          
+          for ( int j=1; j<=n; j=j+1 ) {
+            if ( !b.sottoAttacco(i,j) ) {
+            
+              count = count + numberOfCompletions( b.aggiungiRegina(i,j) );
+          }}
+          return count;
+        }
+      }
+
+      public static int numberOfSolutions( int n ) {
+      
+        return numberOfCompletions( new BoardListe(n) );
+      }
+
+      public static void main( String args[] ) {
+    
+        //int n = Integer.parseInt( args[0] );
+        
+        System.out.println( numberOfSolutions(3));
+      }
 
 }

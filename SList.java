@@ -13,12 +13,13 @@ public class SList<T>
      //private final boolean empty;
      private final T first;
      private final SList<T> rest;
+     public boolean vuoto;
 
 
      //Costruttore di lista vuota
      public SList() 
      {
-        //this.empty = true;
+        vuoto = true;
         this.first = null;
         this.rest  = null;
      }
@@ -26,7 +27,7 @@ public class SList<T>
      //Costruttore di lista non vuota
      public SList(T e, SList<T> lst) 
      {
-        //this.empty = false;
+        vuoto = false;
         this.first = e;
         this.rest  = lst;
      }
