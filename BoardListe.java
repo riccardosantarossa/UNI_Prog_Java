@@ -131,8 +131,17 @@ public class BoardListe
       public static void main( String args[] ) {
     
         //int n = Integer.parseInt( args[0] );
+        SList<Integer> lsd = new SList<>();
+
+        lsd.cons(0);
+        lsd.cons(1);
+        lsd.cons(3);
+        System.out.println(lsd.toString());
         
-        System.out.println( numberOfSolutions(3));
+        
+       // System.out.println( numberOfSolutions(3));
+
+
       }
 
 }
