@@ -10,7 +10,7 @@ public class BoardListe
 
     private int dimScacchiera;
     private int numRegine;
-    private SList<Integer> lstRighe, lstColonne, lstDiagAsc, lstDiagDesc;
+    public static SList<Integer> lstRighe, lstColonne, lstDiagAsc, lstDiagDesc;
     private final String config;
    
 
@@ -56,17 +56,23 @@ public class BoardListe
     public boolean sottoAttacco(int i, int j)
     {
         if(lstRighe.vuoto|| lstColonne.vuoto || lstDiagAsc.vuoto|| lstDiagDesc.vuoto)
+        {
+            lstRighe = lstRighe.cons(i);
+            lstColonne = lstColonne.cons(j);
+            lstDiagAsc = lstDiagAsc.cons(i+j);
+            lstDiagDesc = lstDiagDesc.cons(i-j);
             return false;
-
+        }
+           
         else if(i == lstRighe.car() || j == lstColonne.car() || i+j == lstDiagAsc.car() || i-j == lstDiagDesc.car())
             return true;
         
         else
         {
-            /*lstRighe.cons(i);
-            lstColonne.cons(j);
-            lstDiagAsc.cons(i+j);
-            lstDiagDesc.cons(i-j);*/
+            lstRighe = lstRighe.cons(i);
+            lstColonne = lstColonne.cons(j);
+            lstDiagAsc = lstDiagAsc.cons(i+j);
+            lstDiagDesc = lstDiagDesc.cons(i-j);
             return false;
         }
             
@@ -77,10 +83,10 @@ public class BoardListe
         return new BoardListe
         (  dimScacchiera,
            numRegine+1,
-           lstRighe.cons(i),
-           lstColonne.cons(j),
-           lstDiagAsc.cons(i+j),
-           lstDiagDesc.cons(i-j),
+           lstRighe,
+           lstColonne,
+           lstDiagAsc,
+           lstDiagDesc,
            config
         );
     }
@@ -128,19 +134,10 @@ public class BoardListe
         return numberOfCompletions( new BoardListe(n) );
       }
 
-      public static void main( String args[] ) {
+      public static void main( String args[] ) 
+      {
     
-        //int n = Integer.parseInt( args[0] );
-        SList<Integer> lsd = new SList<>();
-
-        lsd.cons(0);
-        lsd.cons(1);
-        lsd.cons(3);
-        System.out.println(lsd.toString());
-        
-        
-       // System.out.println( numberOfSolutions(3));
-
+        System.out.println(numberOfSolutions(10));
 
       }
 
