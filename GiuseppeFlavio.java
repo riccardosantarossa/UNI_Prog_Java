@@ -7,7 +7,7 @@ public class GiuseppeFlavio
 
     public static int ultimoCavaliere(int n) 
     {
-        tavolaRotonda t = new tavolaRotonda(n);
+        tavolaOttimizzata t = new tavolaOttimizzata(n);
 
         while (t.cavalieriRimasti() > 1) 
         {
