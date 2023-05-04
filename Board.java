@@ -15,19 +15,20 @@
      *           
 */
 
-import java.util.function.*;
-
 public class Board 
 {
     //Variabili d'istanza
     private static final String ROWS = " 123456789ABCDEF";
     private static final String COLUMNS = " abcdefghijklmno";
-    private int dimensione;
+    private final int dimensione;
     private int numRegine;
-    private final String config;  // --> configurazione della scacchiera
+    private String config;  // --> configurazione della scacchiera
 
     //Predicato da usare in underAttack
-    private final BiPredicate<Integer, Integer> attack;
+    private int[] righe;
+    private int[] colonne;
+    private int[] diagAsc;
+    private int[] diagDesc;
 
 
     //Costruttore di scacchiera VUOTA
@@ -35,24 +36,34 @@ public class Board
     {
         dimensione = n;
         numRegine = 0;
-        attack = (x,y) -> false; 
+        righe = new int[n];
+        colonne = new int[n];
+        diagAsc = new int[2*n-1];
+        diagDesc = new int[2*n-1];
+
+        //Riempimento degli array
+        for (int i = 0; i < n; i++) 
+        {
+            righe[i] = 0;
+            colonne[i] = 0;
+        }
+
+        for (int i = 0; i < 2*n-1; i++) 
+        {
+            diagAsc[i] = 0;
+            diagDesc[i] = 0;
+        }
+
         config = " ";
+      
     }
 
-    //Costruttore di scacchiera NON VUOTA
-    private Board(int n, int nQueens, BiPredicate<Integer, Integer> att, String conf)
-    {
-        dimensione = n;
-        numRegine = nQueens;
-        attack = att; 
-        config = conf;
-    }
 
     //Restituisce la dimensione della scacchiera
     public int size()
     {
         return dimensione;
-    }
+    }                           
 
     //Restituisce il numero di regine sulla scacchiera in quel momento
     public int queensOn()
@@ -63,20 +74,21 @@ public class Board
     //Verifica se la casella selezionata è sotto attacco o meno
     public boolean underAttack(int i, int j)
     {
-        return attack.test(i,j);
+        int n = dimensione;
+        return (righe[i-1] > 0 || colonne[j-1] > 0 || diagAsc[i-j+n-1] > 0 || diagDesc[i+j-2] > 0);
     }
 
     //Aggiunge una regina nella casella scelta
-    public Board addQueen(int i, int j)
+    public void addQueen(int i, int j)
     {
-        return new Board
-        (
-            dimensione, 
-            numRegine+1, 
-            //Controllo del predicato: righe, colonne, diagonali a salire e scendere
-            (x, y) -> (x == i || y == j || x-y == i-j || x+y == i+j) || attack.test(x, y),
-            config + COLUMNS.charAt(j) + ROWS.charAt(i) + " " 
-        );
+        int n = dimensione;
+
+        numRegine ++;
+        righe[i-1] = righe[i-1] + 1;
+        colonne[j-1] = colonne[j-1] + 1;
+        diagAsc[i-j+n-1] = diagAsc[i-j+n-1] + 1;
+        diagDesc[i+j-2] = diagDesc[i+j-2] + 1;
+        config = config + COLUMNS.charAt(j) + ROWS.charAt(i) + " ";
     }
 
     //Restituisce la configurazione della scacchiera

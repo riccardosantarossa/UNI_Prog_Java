@@ -2,9 +2,8 @@ public class tavolaOttimizzata
 {
     //ATTRIBUTI
     private int numero; 
-    private int brocca;  //etichetta del cavaliere con la brocca
-    private SList<Integer> altri;
-    private SList<Integer>codaRovescia;
+    private int brocca;  //indice del cavaliere con la brocca dentro l'array
+    private int[] cavalieri;
 
     //METODI
 
@@ -12,20 +11,17 @@ public class tavolaOttimizzata
     public tavolaOttimizzata(int n)
     {
         numero = n;
-        brocca = 1;
-        altri =  creaList(2, n);
-        codaRovescia = new SList<Integer>();
+        brocca = 0;
+        cavalieri = new int[2*n-1];
+
+        //Riempimento dell'ARRAY
+        for (int i = 0; i < n ; i++) 
+        {
+            cavalieri[i] = i + 1;
+        }
     }
 
-    //Costruttore interno
-    private tavolaOttimizzata(int num, int bro, SList<Integer> alt, SList<Integer> cod)
-    {
-        numero = num;
-        brocca = bro;
-        altri = alt;
-        codaRovescia = cod;
-    }
-
+  
     public int cavalieriRimasti() 
     {
         return numero;
@@ -34,51 +30,26 @@ public class tavolaOttimizzata
     //Controlla chi ha la brocca
     public int cavaliereConBrocca() 
     {
-        return brocca;
+        return cavalieri[brocca];
     }
 
     //Serve il succo
-    public tavolaOttimizzata servi() 
+    public void servi() 
     {
-        if(numero > 1)
-        {
-            if(altri.isNull())
-                return new tavolaOttimizzata(numero-1, brocca, codaRovescia.reverse().cdr(), new SList<Integer>());
-            else
-                return new tavolaOttimizzata(numero-1, brocca, altri.cdr(), codaRovescia);
-        }
-        else
-            return this;
+        cavalieri[brocca+1] = cavalieri[brocca];
+        brocca++;
+        numero--;
     }
 
     //Passa la brocca
-    public tavolaOttimizzata passa() 
+    public void passa() 
     {
         if(numero > 1)
         {
-            if(altri.isNull())
-            {
-                SList<Integer> lst = codaRovescia.cons(brocca).reverse();
-                return new tavolaOttimizzata(numero, lst.car(), lst.cdr(), new SList<Integer>());
-            }
-            else
-                return new tavolaOttimizzata(numero, altri.car(), altri.cdr(), codaRovescia.cons(brocca));
+            cavalieri[brocca+numero] = cavalieri[brocca];
+            brocca++;
         }
-        else 
-            return this;
         
-    }
-
-
-    //Crea la lista dei cavalieri
-    private static SList<Integer> creaList(int inf, int sup) 
-    {
-        SList<Integer> lst = new SList<Integer>();
-
-        for(int i = sup; i>=inf; i --)
-            lst = lst.cons(i);
-
-        return lst;
     }
 
 }

@@ -23,9 +23,11 @@ public class queens
             for (int j = 1; j < n; j++) 
             {
                 if(!b.underAttack(i,j))
-                   cont += numCompletamenti(b.addQueen(i,j));
+                {
+                    b.addQueen(i,j);
+                    cont += numCompletamenti(b);
+                }
             }
-
             return cont;
         }
 
@@ -53,7 +55,10 @@ public class queens
             for (int j = 1; j < n; j++) 
             {
                 if(!b.underAttack(i,j))
-                   lst = lst.append(listaCompletamenti(b.addQueen(i,j)));
+                {
+                    b.addQueen(i,j);
+                    lst = lst.append(listaCompletamenti(b));
+                }
             }
 
             return lst;
