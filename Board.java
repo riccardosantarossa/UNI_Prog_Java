@@ -91,6 +91,25 @@ public class Board
         config = config + COLUMNS.charAt(j) + ROWS.charAt(i) + " ";
     }
 
+    //Rimuove una regina per continuare a controllare le soluzione
+    public void removeQueen(int i, int j)
+    {
+        int n = dimensione;
+
+        numRegine --;
+
+        righe[i-1] = righe[i-1] - 1;
+        colonne[j-1] = colonne[j-1] - 1;
+        diagAsc[i-j+n-1] = diagAsc[i-j+n-1] - 1;
+        diagDesc[i+j-2] = diagDesc[i+j-2] - 1;
+
+        String position = "" + COLUMNS.charAt(j) + ROWS.charAt(i);
+        int index = config.indexOf(position);
+
+        config = config.substring(0, index) + config.substring(index+3);
+    }
+
+
     //Restituisce la configurazione della scacchiera
     public String arrangement() 
     {
