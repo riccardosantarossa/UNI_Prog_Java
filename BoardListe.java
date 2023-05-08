@@ -55,27 +55,10 @@ public class BoardListe
 
     public boolean sottoAttacco(int i, int j)
     {
-        if(lstRighe.vuoto|| lstColonne.vuoto || lstDiagAsc.vuoto|| lstDiagDesc.vuoto)
-        {
-            lstRighe = lstRighe.cons(i);
-            lstColonne = lstColonne.cons(j);
-            lstDiagAsc = lstDiagAsc.cons(i+j);
-            lstDiagDesc = lstDiagDesc.cons(i-j);
+        if(lstRighe.isNull() || lstColonne.isNull() || lstDiagAsc.isNull() || lstDiagDesc.isNull())
             return false;
-        }
-           
-        else if(i == lstRighe.car() || j == lstColonne.car() || i+j == lstDiagAsc.car() || i-j == lstDiagDesc.car())
-            return true;
-        
-        else
-        {
-            lstRighe = lstRighe.cons(i);
-            lstColonne = lstColonne.cons(j);
-            lstDiagAsc = lstDiagAsc.cons(i+j);
-            lstDiagDesc = lstDiagDesc.cons(i-j);
-            return false;
-        }
-            
+        else    
+            return (lstRighe.reverse().car() == i || lstColonne.reverse().car() == j || lstDiagAsc.reverse().car() == i+j || lstDiagDesc.reverse().car() == i-j);   
     }   
 
     public BoardListe aggiungiRegina(int i, int j)
@@ -83,10 +66,10 @@ public class BoardListe
         return new BoardListe
         (  dimScacchiera,
            numRegine+1,
-           lstRighe,
-           lstColonne,
-           lstDiagAsc,
-           lstDiagDesc,
+           lstRighe.cons(i),
+           lstColonne.cons(j),
+           lstDiagAsc.cons(i+j),
+           lstDiagDesc.cons(i-j),
            config
         );
     }
@@ -106,25 +89,25 @@ public class BoardListe
 
 
     //------------------------------------------------------------------------------------------------------------//
-    private static int numberOfCompletions( BoardListe b ) {
+    private static int numberOfCompletions( BoardListe b ) 
+    {
     
         int n = b.size();
         int q = b.queensOn();
         
-        if ( q == n ) {
-        
-          return 1;
-        
-        } else {
+        if ( q == n ) 
+            return 1;
+        else 
+        {
         
           int i = q + 1;
           int count = 0;
           
-          for ( int j=1; j<=n; j=j+1 ) {
-            if ( !b.sottoAttacco(i,j) ) {
-            
+          for ( int j=1; j<=n; j=j+1 ) 
+          {
+            if ( !b.sottoAttacco(i,j) ) 
               count = count + numberOfCompletions( b.aggiungiRegina(i,j) );
-          }}
+          }
           return count;
         }
       }
@@ -137,7 +120,7 @@ public class BoardListe
       public static void main( String args[] ) 
       {
     
-        System.out.println(numberOfSolutions(10));
+        System.out.println(numberOfSolutions(6));
 
       }
 
