@@ -1,3 +1,4 @@
+package Altro;
 public class traduzioni 
 {
     
