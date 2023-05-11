@@ -1,5 +1,4 @@
 package Huffman;
-import huffman_toolkit.*;
 
 public class esempiIO 
 {
@@ -12,8 +11,32 @@ public class esempiIO
 
         while (in.textAvailable) 
         {
-            String linea = in.readTextLine();
-            out.writeTextLine(linea);
+            /*Conteggio delle righe
+             *
+             *  String linea = in.readTextLine();
+             *  out.writeTextLine(linea);
+             * 
+            */
+
+            /*Conteggio dei caratteri 
+             *
+             *  char c = in.readChar();
+             *  out.writeChar(c);
+             * 
+            */
+
+            /*Conteggio dei bit
+             * 
+             *  int bit = in.readBit();
+             *   out.writeBit(bit);
+            */
+
+            /*Lettura di parole di sette bit alla volta
+             * 
+             * String sette = in.readCode(7);
+             * out.writeCode(sette);
+             */
+            
             cont ++;
         }
 
