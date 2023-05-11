@@ -1,3 +1,6 @@
+package GiuseppeFlavio;
+import Liste.*;
+
 public class RoundTable {
 
     private int numero; 

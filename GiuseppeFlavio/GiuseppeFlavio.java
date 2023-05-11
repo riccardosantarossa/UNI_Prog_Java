@@ -1,12 +1,10 @@
+package GiuseppeFlavio;
+
 public class GiuseppeFlavio 
 {
-
     /*
      * CLASSE PER I TEST DELLE VARIE TAVOLE
      */
-
-
-
     //Metodo con tavola ottimizzata
     public static int ottimoCavaliere(int n) 
     {

@@ -1,3 +1,5 @@
+package GiuseppeFlavio;
+
 public class tavolaOttimizzata 
 {
     //ATTRIBUTI

@@ -1,3 +1,6 @@
+package Regine;
+import Liste.SList;
+
 public class BoardListe 
 {
     

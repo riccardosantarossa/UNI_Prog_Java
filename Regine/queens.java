@@ -1,3 +1,6 @@
+package Regine;
+import Liste.Board;
+import Liste.SList;
 
 public class queens 
 {

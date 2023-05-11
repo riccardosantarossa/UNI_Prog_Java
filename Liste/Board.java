@@ -1,3 +1,4 @@
+package Liste;
 /*
      *  board b              --> tipo dell'oggetto
      * 
