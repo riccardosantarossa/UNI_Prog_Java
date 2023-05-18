@@ -1,5 +1,6 @@
 package Huffman;
 import java.util.PriorityQueue;
+import huffman_toolkit.*;
 
 public class huffman
 {
@@ -69,19 +70,85 @@ public class huffman
         }
     }
 
+    public static String codificaAlbero(nodo n) 
+    {
+        if(n.foglia())
+        {
+            char c = n.simbolo();
+
+            if(c == '@' || c == '\\')
+                return "\\" + c;
+            else
+                return "" + c;
+        }
+        else
+            return "@" + codificaAlbero(n.sinistro()) + codificaAlbero(n.destro()); 
+    }
+
     private static void comprimi(String src, String dst) 
     {
         int[] freq = freqChar(src);
         nodo radice = alberoHuffman(freq);
         String[] tab = tabHuffman(radice); 
 
-        InputTextFIle in = InputTextFile(src);
-        OutputTextFIle out = InputTextFile(src);
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(src);
+
+        out.writeTextLine(dst);
 
         while(in.textAvailable())
         {
             char c = in.readChar();
             out.writeChar(tab[c]);
+        }
+
+        in.close();
+        out.close();
+
+    }
+
+    public static nodo ripristinaALbero(InputTextFile in) 
+    {
+        char c = in.readChar();
+
+        if(c == '@')
+        {
+            nodo l = ripristinaALbero(in);
+            nodo r = ripristinaALbero(in);
+
+            return new nodo(l, r);
+        }
+            
+        else 
+            if(c == '\\')
+                c = in.readChar();
+        
+        return new nodo(c, 0);
+    }
+
+    private static void decomprimi(String src, String dst) 
+    {
+        
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);
+
+        nodo radice = ripristinaALbero(in);
+        int conto = Integer.parseInt(in.readTextLine());
+        String dummy = in.readTextLine();
+
+        for(int i=0; i<conto; i++)
+        {
+            nodo n = radice;
+
+            do 
+            {
+                int bit = in.readBit();
+                n =(bit==0) ? n.sinistro() : n.destro();
+
+            } while (!n.foglia());
+
+            char c = n.simbolo();
+            out.writeChar(c);
         }
 
         in.close();
