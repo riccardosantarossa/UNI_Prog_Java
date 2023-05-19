@@ -5,12 +5,12 @@ public class esempiIO
 {
     public static int copiaFile(String src, String dst) 
     {
-        InputTextFIle in = InputTextFile(src);
-        OutputTextFIle out = InputTextFile(src);
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(src);
 
         int cont = 0;
 
-        while (in.textAvailable) 
+        while (in.textAvailable()) 
         {
             /*Conteggio delle righe
              *
