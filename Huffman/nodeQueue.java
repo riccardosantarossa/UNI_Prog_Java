@@ -3,12 +3,12 @@ package Huffman;
 public class nodeQueue 
 {
     //VARIABILI DI ISTANZA
-    private static nodo[] coda = new nodo[128];
+    private static nodo[] coda;
 
     //Costruttore
     public nodeQueue()
     {
-        coda = null;
+        coda = new nodo[128];
     }
 
     //restituisce il numero di elementi contenuti nella coda
@@ -40,7 +40,7 @@ public class nodeQueue
         primo = coda[0];
         coda[0] = null;
 
-        
+
 
         return primo;
 
