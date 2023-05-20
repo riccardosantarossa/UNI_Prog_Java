@@ -85,26 +85,26 @@ public class huffman
             return "@" + codificaAlbero(n.sinistro()) + codificaAlbero(n.destro()); 
     }
 
-    private static void comprimi(String src, String dst) 
+    public static void comprimi(String src, String dst) 
     {
         int[] freq = freqChar(src);
         nodo radice = alberoHuffman(freq);
         String[] tab = tabHuffman(radice); 
 
         InputTextFile in = new InputTextFile(src);
-        OutputTextFile out = new OutputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);
 
-        out.writeTextLine(dst);
+        out.writeTextLine("" + radice.peso());
+        out.writeTextLine(codificaAlbero(radice));
 
         while(in.textAvailable())
         {
             char c = in.readChar();
-            out.writeChar(tab[c]);
+            out.writeCode(tab[c]);
         }
 
         in.close();
         out.close();
-
     }
 
     public static nodo ripristinaALbero(InputTextFile in) 
@@ -126,7 +126,7 @@ public class huffman
         return new nodo(c, 0);
     }
 
-    private static void decomprimi(String src, String dst) 
+    public static void decomprimi(String src, String dst) 
     {
         
         InputTextFile in = new InputTextFile(src);
@@ -153,5 +153,10 @@ public class huffman
 
         in.close();
         out.close();
+    }
+
+    public static void main(String[] args) 
+    {
+        
     }
 }
