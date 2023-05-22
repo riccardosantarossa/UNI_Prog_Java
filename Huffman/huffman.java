@@ -66,8 +66,11 @@ public class huffman
             String percorso = c.percorso; 
 
             if(n.foglia())
+            {
+                char car = n.simbolo();
                 tab[n.simbolo()] = percorso;
-
+            }
+                
             else
             {
                 stack.push(new coppia(n.destro(), percorso + "1"));
@@ -134,18 +137,18 @@ public class huffman
 
             if(n.foglia())
             {
-                char c = radice.simbolo();
+                char c = n.simbolo();
 
                 if(c == '@' || c == '\\')
-                    codifica += "\\" + c;
+                    codifica = codifica + "\\" + c;
                 else
-                    codifica += c;
+                    codifica = codifica + "" + c;
             }
             else
             {
-                codifica += '@';
-                stack.push(radice.destro()); 
-                stack.push(radice.sinistro());
+                codifica = codifica + "@";
+                stack.push(n.destro()); 
+                stack.push(n.sinistro());
             }
                 
         } while (!stack.empty());
@@ -202,24 +205,29 @@ public class huffman
 
                     n = new nodo(c, 0);
                     s.pop();
+
+                    break;
                 }
-                break;
+                
 
                 case 1: 
                 {
                     f.sin = n;
                     s.push(new frame());
                     f.stato = 2;
+
+                    break;
                 }
-                break;
+                
 
                 case 2: 
                 {
                    f.des = n;
                    n = new nodo(f.sin, f.des);
                    s.pop();
+
+                   break;
                 }
-                break;
             
                 default:
                     break;
@@ -232,6 +240,7 @@ public class huffman
 
     public static void comprimi(String src, String dst) 
     {
+
         int[] freq = freqChar(src);
         nodo radice = alberoHuffman(freq);
         String[] tab = tabHuffman(radice); 
@@ -282,7 +291,7 @@ public class huffman
         out.close();
     }
 
-    public static void main(String[] args) 
+    public static void main(String[] args) throws Exception
     {
         huffman.comprimi("fileDiTesto\\nodo.txt", "fileDiTesto\\nodoCompresso.txt");
     }
