@@ -23,7 +23,7 @@ public class fileRandomico
 
     public static void main(String[] args) 
     {
-        creaRandomFile("out.txt");
-        huffman.comprimi("out.txt", "outCompresso.txt");   
+        creaRandomFile("fileDiTesto\\out.txt");
+        huffman.comprimi("fileDiTesto\\out.txt", "fileDiTesto\\outCompresso.txt");   
     }
 }

@@ -1,5 +1,5 @@
 package Huffman;
-import java.util.PriorityQueue;
+import java.util.*;
 import huffman_toolkit.*;
 
 public class huffman
@@ -51,14 +51,36 @@ public class huffman
         return coda.poll();
     }
     
+    //Versione iterativa
     public static String[] tabHuffman(nodo rad)
     {
+        Stack<coppia> stack= new Stack<coppia>();
+        stack.push(new coppia(rad, ""));
+
         String[] tab = new String[InputTextFile.CHARS];
-        compilaTab(rad, "", tab);
+
+        do 
+        {
+            coppia c = stack.pop();
+            nodo n = c.nodo;
+            String percorso = c.percorso; 
+
+            if(n.foglia())
+                tab[n.simbolo()] = percorso;
+
+            else
+            {
+                stack.push(new coppia(n.destro(), percorso + "1"));
+                stack.push(new coppia(n.sinistro(), percorso + "0"));
+            }
+                
+        } while (!stack.empty());
+        
 
         return tab;
     }
 
+    /* VERSIONE RICORSIVA
     private static void compilaTab(nodo n, String cod, String[] tab) 
     {
         if(n.foglia())
@@ -68,8 +90,21 @@ public class huffman
             compilaTab(n.sinistro(), cod + "0", tab);
             compilaTab(n.destro(), cod + "1", tab);
         }
-    }
+    }*/
 
+    /*VERSIONE RICORSIVA 
+    private static void compilaTab(nodo n, String cod, String[] tab) 
+    {
+        if(n.foglia())
+            tab[n.simbolo()] = cod;
+        else
+        {
+            compilaTab(n.sinistro(), cod + "0", tab);
+            compilaTab(n.destro(), cod + "1", tab);
+        }
+    }/*
+
+    /* VERSIONE RICORSIVA RIP
     public static String codificaAlbero(nodo n) 
     {
         if(n.foglia())
@@ -83,6 +118,116 @@ public class huffman
         }
         else
             return "@" + codificaAlbero(n.sinistro()) + codificaAlbero(n.destro()); 
+    }*/
+
+    //Versione iterativa
+    public static String codificaAlbero(nodo radice) 
+    {
+        Stack<nodo> stack = new Stack<nodo>();
+        stack.push(radice);
+
+        String codifica = "";
+
+        do 
+        {
+            nodo n = stack.pop();
+
+            if(n.foglia())
+            {
+                char c = radice.simbolo();
+
+                if(c == '@' || c == '\\')
+                    codifica += "\\" + c;
+                else
+                    codifica += c;
+            }
+            else
+            {
+                codifica += '@';
+                stack.push(radice.destro()); 
+                stack.push(radice.sinistro());
+            }
+                
+        } while (!stack.empty());
+
+        return codifica;
+    }
+
+    /*VERSIONE RICORSIVA 
+    public static nodo ripristinaALbero(InputTextFile in) 
+    {
+        char c = in.readChar();
+
+        if(c == '@')
+        {
+            nodo l = ripristinaALbero(in);
+            nodo r = ripristinaALbero(in);
+
+            return new nodo(l, r);
+        }
+            
+        else 
+            if(c == '\\')
+                c = in.readChar();
+        
+        return new nodo(c, 0);
+    }*/
+
+    //Versione iterativa
+    public static nodo ripristinaALbero(InputTextFile in) 
+    {
+        Stack<frame> s = new Stack<frame>();
+        s.push(new frame());
+
+        nodo n = null;
+
+        do 
+        {
+            frame f = s.peek();
+
+            switch (f.stato) 
+            {
+                case 0: 
+                {
+                    char c = in.readChar();
+
+                    if(c == '@')
+                    {
+                        s.push(new frame());
+                        f.stato = 1;
+                    } 
+                    else
+                        if(c == '\\')
+                            c = in.readChar();
+
+                    n = new nodo(c, 0);
+                    s.pop();
+                }
+                break;
+
+                case 1: 
+                {
+                    f.sin = n;
+                    s.push(new frame());
+                    f.stato = 2;
+                }
+                break;
+
+                case 2: 
+                {
+                   f.des = n;
+                   n = new nodo(f.sin, f.des);
+                   s.pop();
+                }
+                break;
+            
+                default:
+                    break;
+            }
+
+        } while (!s.empty());
+        
+        return n;
     }
 
     public static void comprimi(String src, String dst) 
@@ -105,25 +250,7 @@ public class huffman
 
         in.close();
         out.close();
-    }
 
-    public static nodo ripristinaALbero(InputTextFile in) 
-    {
-        char c = in.readChar();
-
-        if(c == '@')
-        {
-            nodo l = ripristinaALbero(in);
-            nodo r = ripristinaALbero(in);
-
-            return new nodo(l, r);
-        }
-            
-        else 
-            if(c == '\\')
-                c = in.readChar();
-        
-        return new nodo(c, 0);
     }
 
     public static void decomprimi(String src, String dst) 
@@ -143,7 +270,7 @@ public class huffman
             do 
             {
                 int bit = in.readBit();
-                n =(bit==0) ? n.sinistro() : n.destro();
+                n = (bit==0) ? n.sinistro() : n.destro();
 
             } while (!n.foglia());
 
@@ -157,6 +284,6 @@ public class huffman
 
     public static void main(String[] args) 
     {
-        
+        huffman.comprimi("fileDiTesto\\nodo.txt", "fileDiTesto\\nodoCompresso.txt");
     }
 }
