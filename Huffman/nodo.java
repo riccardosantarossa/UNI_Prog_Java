@@ -7,6 +7,7 @@ public class nodo implements Comparable<nodo>
     private final nodo sin;
     private final nodo des;
 
+    //nodo foglia
     public nodo( char c, int w)
     {
         car = c;
@@ -15,6 +16,7 @@ public class nodo implements Comparable<nodo>
         des = null;
     }
 
+    //nodo non foglia
     public nodo(nodo l , nodo r)
     {
         car = (char) 0;

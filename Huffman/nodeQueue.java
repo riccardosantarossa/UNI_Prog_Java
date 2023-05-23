@@ -39,12 +39,34 @@ public class nodeQueue
 
         primo = coda[0];
         coda[0] = null;
-
-
+        
 
         return primo;
 
     }
+
+
+    //ordinamento ausiliario
+    public static void ordina()
+    {
+        nodo temp;
+
+        for (int i = 0; i < ( coda.length - 1 ); i++) 
+        {
+            for (int j = 0; j < coda.length - i - 1; j++) 
+            {
+              if (coda[j].peso() < coda[j+1].peso()) 
+              {
+                temp = coda[j];
+                coda[j] = coda[j+1];
+                coda[j+1] = temp;
+              }
+            }
+          }
+    }
+
+    
+
 
     //aggiunge un nuovo elemento n alla coda
     public static void add(nodo n)
