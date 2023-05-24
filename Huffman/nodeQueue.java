@@ -64,6 +64,9 @@ public class nodeQueue
      {
         int posIns = 0;
 
+        if(size() == 0)
+            posIns = 0;
+
         for (int i = 0; i < coda.length; i++) 
         {
             if(n.peso() >= coda[size()-1].peso())
