@@ -62,7 +62,33 @@ public class nodeQueue
      //aggiunge un nuovo elemento n alla coda
      public static void add(nodo n)
      {
-        
+        int posIns = 0;
+
+        for (int i = 0; i < coda.length; i++) 
+        {
+            if(n.peso() >= coda[size()-1].peso())
+                    posIns = size();
+            else
+            {
+                if(n.peso() <= coda[i].peso())
+                {
+                    posIns = i;
+                    break;
+                }
+            }
+           
+        }
+
+        for (int j = size()-1; j >= posIns ; j--) 
+        {
+            if(coda[j+1] == null)
+            {
+                coda[j+1] = coda[j];
+                coda[j] = null;
+            }
+        }
+
+        coda[posIns] = n;
      }
 
    
