@@ -4,22 +4,28 @@ public class nodeQueue
 {
     //VARIABILI DI ISTANZA
     private static nodo[] coda;
+    private static int dim = 128;
 
     //Costruttore
     public nodeQueue()
     {
-        coda = new nodo[128];
+        coda = new nodo[dim];
+
+        for (int i = 0; i < dim; i++) 
+        {
+            coda[i] = null;
+        }
     }
 
     //restituisce il numero di elementi contenuti nella coda
     public static int size()
     {
-        int numNodi = 0, index = 0;
+        int numNodi = 0;
 
-        while(coda[index] != null)
+        for (int i = 0; i < coda.length; i++) 
         {
-            numNodi ++;
-            index ++;
+            if(coda[i] != null)
+                numNodi++;
         }
 
         return numNodi;
@@ -32,6 +38,7 @@ public class nodeQueue
         return coda[0];
     }
 
+    
     //restituisce e rimuove dalla coda l’elemento con “peso minore”
     public static nodo poll()
     {
@@ -40,37 +47,23 @@ public class nodeQueue
         primo = coda[0];
         coda[0] = null;
         
-
-        return primo;
-
-    }
-
-
-    //ordinamento ausiliario
-    public static void ordina()
-    {
-        nodo temp;
-
-        for (int i = 0; i < ( coda.length - 1 ); i++) 
+        for (int i = 1; i < coda.length; i++) 
         {
-            for (int j = 0; j < coda.length - i - 1; j++) 
+            if(coda[i-1] == null)
             {
-              if (coda[j].peso() < coda[j+1].peso()) 
-              {
-                temp = coda[j];
-                coda[j] = coda[j+1];
-                coda[j+1] = temp;
-              }
+                coda[i-1] = coda[i];
+                coda[i] = null;
             }
-          }
+                
+        }
+        return primo;
     }
 
-    
+     //aggiunge un nuovo elemento n alla coda
+     public static void add(nodo n)
+     {
+        
+     }
 
-
-    //aggiunge un nuovo elemento n alla coda
-    public static void add(nodo n)
-    {
-
-    }
+   
 }
