@@ -1,7 +1,69 @@
 package Altro;
 
+import java.util.Stack;
+
 public class esempiEsami 
 {
+    //ESERCIZI FATTI A LEZIONE, ESAME 2020
+
+    //es 2
+    public static long recDP(int x, int y, int z)
+    {
+        long[][] mem = new long[x+1][z+1];
+
+        for (int i = 1; i <= x; i++) 
+        {
+            for (int j = z; j >= y ; j--) 
+            {
+                if(i == 1 || j == z)
+                    mem[i][j] = 1;
+                else
+                    mem[i][j] = mem[i-1][j] + i*mem[i][j+1];
+            }
+        }
+
+        return mem[x][y];
+    }
+
+
+    //es3
+    public static String hanoiIter( Towers hts, int d ) 
+    {
+        int n = hts.height();
+        Stack<int[]> stk = new Stack<int[]>();
+        stk.push( new int[]{ n, d } );
+        
+        while ( !stk.empty()) 
+        {
+            int[] f = stk.pop();
+            n = f[0];
+            d = f[1];
+
+            if ( n > 0 ) 
+            {
+                if ( hts.site(n) == d ) 
+                {
+                    stk.push( new int[]{n-1, d} );
+                }  
+                else 
+                {
+                    int t = hts.transit( n, d );
+                    stk.push(new int[] {n-1, d});
+                    stk.push(new int[] {-n, d});           ;
+                    stk.push(new int[] {n-1, d});
+                }
+            } else if ( n < 0 ) 
+            {
+                   hts.move(-n, d);
+            }
+        }
+            return hts.moves();
+        }
+
+
+
+
+
     //-------------------------------------------------------------------------------------------------//
     // FILE ESEMPI D'ESAME
 
@@ -110,6 +172,7 @@ public class esempiEsami
     {
         //System.out.print(heapCheck(new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 }));
         //System.out.print(lpsDP("irradiare"));
-        System.out.print(llcs3("anna", "aria", "alla"));
+        //System.out.print(llcs3("anna", "aria", "alla"));
+        System.out.print(recDP(8, 5, 12));
     }
 }
