@@ -1,6 +1,7 @@
 package Altro;
+import java.util.*;
 
-import java.util.Stack;
+import Huffman.nodo;
 
 public class esempiEsami 
 {
@@ -26,7 +27,7 @@ public class esempiEsami
     }
 
 
-    //es3
+    /*es3
     public static String hanoiIter( Towers hts, int d ) 
     {
         int n = hts.height();
@@ -58,7 +59,7 @@ public class esempiEsami
             }
         }
             return hts.moves();
-        }
+        }*/
 
 
 
@@ -69,7 +70,7 @@ public class esempiEsami
 
     public static int UNKNOWN = -1;
 
-    //ES1
+    //ES1 TEORICAMENTE GIUSTO
     public static int llcs3(String s, String t, String u)
     {
         int n = s.length(), m = t.length(), o = u.length();
@@ -106,32 +107,158 @@ public class esempiEsami
         return mem[m][n][o];
     }
 
-    
+   
 
-    //ES8
+    //ES7 TEORICAMENTE FATTO (commentato perchè frame gli dà fastidio)
+    public class Frame 
+    {
+
+        public final nodo node;
+        public final int depth;
+       
+        public Frame( nodo n, int prof ) 
+        {
+            node = n;
+            depth = prof;
+        }
+    } // class Frame
+
+    public static int codeSizeIter( nodo root ) 
+        {
+            long bits = 0;
+            Stack<Frame> stack = new Stack<Frame>();
+            //stack.push( new Frame(root, 0));
+            do 
+            {
+                Frame current = stack.pop();
+                nodo n = current.node;
+                int depth = current.depth;
+                
+                if(n.foglia())
+                  bits = depth * n.peso();
+                else
+                {
+                    //stack.push( new Frame(n.sinistro(), depth+1));
+                    //stack.push( new Frame(n.destro(), depth+1));
+                }
+       
+            } while (!stack.empty());
+       
+            return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
+        }
+
+    //ES4 UN PO' UN CASINO, DA RIVEDERE
+    public static int shortestCodeLength( nodo root ) 
+    {
+        int sc = root.peso();
+        Stack<nodo> stack = new Stack<nodo>();
+        Stack<Integer> depth = new Stack<Integer>();
+
+        stack.push( root );
+        depth.push( 0 );
+
+        do {
+
+            nodo n = stack.pop();
+            int d = depth.pop();
+
+            if ( n.foglia()) 
+                sc = Math.min( sc, d );
+
+            else if ( d+1 < sc) 
+            {
+                stack.push(n.sinistro());
+                stack.push(n.destro());
+
+        
+            }
+        } while (!stack.empty() && !depth.empty());
+        
+        return sc;
+    }
+
+    //ES5 FATTO
+    public static void closestPair(double[] v)
+     {
+         double n1=v[0], n2=v[1], diff = Math.abs((n1-n2));
+ 
+         for (int i = 0; i < v.length; i++) 
+         {
+             for (int j = i+1; j < v.length; j++) 
+             {
+                 if(Math.abs(v[i] - v[j]) < diff)
+                 {
+                     diff = Math.abs(v[i] - v[j]);
+                     n1 = v[i];
+                     n2 = v[j];
+                 }
+             }
+         }
+ 
+         double[] out = new double[] {n1, n2};
+         Arrays.sort(out);
+ 
+         for (int i = 0; i < out.length; i++) 
+         {
+             System.out.print(out[i] + " ");
+         }
+     }
+    
+    //ES6 FATTO
+    public static int commonStretches(String u, String v)
+    {
+        int common = 0, num0U = 0, num1U = 0, num0V = 0, num1V = 0;
+
+        for (int i = 0; i < u.length(); i++) 
+        {
+            String prefixU = u.substring(0, i+1), prefixV = v.substring(0, i+1);
+
+            for (int j = 0; j < prefixU.length(); j++) 
+            {
+                if(prefixU.charAt(j) == '0')
+                    num0U ++;
+                else
+                    num1U ++;
+
+                if(prefixV.charAt(j) == '0')
+                    num0V ++;
+                else
+                    num1V ++;
+            }
+
+            if((num0U == num0V) && (num1U == num1V))
+                if(u.charAt(i) == v.charAt(i))
+                    common ++;
+
+            num0U = 0; num1U = 0; num0V = 0; num1V = 0;
+        }
+
+        return common;
+    }
+
+    //ES8 FATTO
     public static boolean heapCheck(double[] v)
     {
         int n = v.length;
-        int j, h;
+        int j=1, i;
 
-        for (int i = 0; i < n; i++) 
+        for (i = 1 ; i < n; i++) 
         {
+           j = 2 * i; 
 
-            j=2*i;
-            h=j+1;
+           if((j<n && v[i] > v[j]))
+              return false;
 
-            if(h<n && v[i]>v[h])
-                return false;
-            
-            if(j<n && v[i]>v[j])
-                return false;            
+           j = (2*i) + 1;
+
+           if((j<n && v[i] > v[j]))
+              return false;
         }
 
         return true;
     }
 
-
-    //ES9 
+    //ES9 CIRCA
     private static String longer(String u, String v)
     {
         int m = u.length(), n = v.length();
@@ -146,7 +273,7 @@ public class esempiEsami
             return u;            
     }
 
-        public static String lpsDP(String s) {
+    public static String lpsDP(String s) {
             int n = s.length();
             String[][] mem = new String[n][n];
         
@@ -170,9 +297,14 @@ public class esempiEsami
 
     public static void main(String[] args) 
     {
-        //System.out.print(heapCheck(new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 }));
-        //System.out.print(lpsDP("irradiare"));
-        //System.out.print(llcs3("anna", "aria", "alla"));
-        System.out.print(recDP(8, 5, 12));
+        /*
+            System.out.print(heapCheck(new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 }));
+            System.out.print(lpsDP("irradiare"));
+            System.out.print(llcs3("anna", "aria", "alla"));
+            System.out.print(recDP(8, 5, 12));
+            closestPair(new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1});
+            System.out.print(commonStretches( "001100", "001100" ));
+        */
+       
     }
 }
