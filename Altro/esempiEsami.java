@@ -107,45 +107,6 @@ public class esempiEsami
         return mem[m][n][o];
     }
 
-   
-
-    //ES7 TEORICAMENTE FATTO (commentato perchè frame gli dà fastidio)
-    public class Frame 
-    {
-
-        public final nodo node;
-        public final int depth;
-       
-        public Frame( nodo n, int prof ) 
-        {
-            node = n;
-            depth = prof;
-        }
-    } // class Frame
-
-    public static int codeSizeIter( nodo root ) 
-        {
-            long bits = 0;
-            Stack<Frame> stack = new Stack<Frame>();
-            //stack.push( new Frame(root, 0));
-            do 
-            {
-                Frame current = stack.pop();
-                nodo n = current.node;
-                int depth = current.depth;
-                
-                if(n.foglia())
-                  bits = depth * n.peso();
-                else
-                {
-                    //stack.push( new Frame(n.sinistro(), depth+1));
-                    //stack.push( new Frame(n.destro(), depth+1));
-                }
-       
-            } while (!stack.empty());
-       
-            return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
-        }
 
     //ES4 UN PO' UN CASINO, DA RIVEDERE
     public static int shortestCodeLength( nodo root ) 
@@ -235,6 +196,44 @@ public class esempiEsami
 
         return common;
     }
+
+    //ES7 TEORICAMENTE FATTO (commentato perchè frame gli dà fastidio)
+    public class Frame 
+    {
+
+        public final nodo node;
+        public final int depth;
+       
+        public Frame( nodo n, int prof ) 
+        {
+            node = n;
+            depth = prof;
+        }
+    } // class Frame
+
+    public static int codeSizeIter( nodo root ) 
+        {
+            long bits = 0;
+            Stack<Frame> stack = new Stack<Frame>();
+            //stack.push( new Frame(root, 0));
+            do 
+            {
+                Frame current = stack.pop();
+                nodo n = current.node;
+                int depth = current.depth;
+                
+                if(n.foglia())
+                  bits = depth * n.peso();
+                else
+                {
+                    //stack.push( new Frame(n.sinistro(), depth+1));
+                    //stack.push( new Frame(n.destro(), depth+1));
+                }
+       
+            } while (!stack.empty());
+       
+            return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
+        }
 
     //ES8 FATTO
     public static boolean heapCheck(double[] v)
