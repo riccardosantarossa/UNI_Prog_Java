@@ -1,5 +1,7 @@
 package Altro;
+import Regine.Board;
 import java.util.*;
+
 
 import Huffman.nodo;
 
@@ -107,6 +109,60 @@ public class esempiEsami
         return mem[m][n][o];
     }
 
+    //ES2
+    public static boolean matrSimm(int[][] m)
+    {
+        int dim = m.length;
+        int[][] trasp = new int[dim][dim];
+
+        //costruisco la trasposta
+        for (int i = 0; i < trasp.length; i++) 
+        {
+            for (int j = 0; j < trasp.length; j++) 
+            {
+                trasp[i][j] = m[j][i];
+            }    
+        }
+
+        //confronto la matrice con la trasposta appena costruita
+        for (int i = 0; i < trasp.length; i++) 
+        {
+            for (int j = 0; j < trasp.length; j++) 
+            {
+                if(m[i][j] != trasp[i][j])
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    //ES3 (scrivo solo i due metodi, istanzio un oggetto board per non modificare il file della classe)
+    public static boolean isFreeRow(int i)
+    {
+        Board b = new Board(i);
+        
+        for (int j = 0; j < b.size(); j++) 
+        {
+            if(b.underAttack(i, j))
+                return false;
+        }
+
+        return true;
+    }
+
+    public static void addQueen(String pos)
+    {
+        /*int i = pos.charAt(0), j = pos.charAt(1);
+        int n = dimensione;
+
+        numRegine ++;
+        righe[i-1] = righe[i-1] + 1;
+        colonne[j-1] = colonne[j-1] + 1;
+        diagAsc[i-j+n-1] = diagAsc[i-j+n-1] + 1;
+        diagDesc[i+j-2] = diagDesc[i+j-2] + 1;
+        config = config + j + i + " ";*/
+    }
 
     //ES4 UN PO' UN CASINO, DA RIVEDERE
     public static int shortestCodeLength( nodo root ) 
@@ -303,7 +359,7 @@ public class esempiEsami
             System.out.print(recDP(8, 5, 12));
             closestPair(new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1});
             System.out.print(commonStretches( "001100", "001100" ));
+            System.out.print(matrSimm(new int[][]{{1,0,3}, {2,4,6}, {7,0,1}}));
         */
-       
     }
 }
