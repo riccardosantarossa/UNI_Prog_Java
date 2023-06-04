@@ -1,19 +1,15 @@
 package Regine;
-import Liste.SList;
+import Liste.IntSList;
 
 public class BoardListe 
 {
     
-    /*Al posto di utilizzare un predicato per controllare le caselle
-     * in cui sono poste le regine, si utilizzano 4 liste di indici interi, per controllare
-     * righe, colonne e diagonali ascendenti e discendenti
-     */
-
     //Variabili di istanza
-
+    private static final String ROW = "123456789ABCDEF";
+    private static final String COL = "abcdefghijklmno";
     private int dimScacchiera;
     private int numRegine;
-    public static SList<Integer> lstRighe, lstColonne, lstDiagAsc, lstDiagDesc;
+    private  IntSList lstRighe, lstColonne, lstDiagAsc, lstDiagDesc;
     private final String config;
    
 
@@ -22,24 +18,24 @@ public class BoardListe
     {
         dimScacchiera = n;
         numRegine = 0;
-        lstRighe = new SList<Integer>();
-        lstColonne = new SList<Integer>();
-        lstDiagAsc = new SList<Integer>();
-        lstDiagDesc = new SList<Integer>();
+        lstRighe = new IntSList();
+        lstColonne = new IntSList();
+        lstDiagAsc = new IntSList();
+        lstDiagDesc = new IntSList();
         config = " ";
     }
 
 
     //Costruttore di scacchiera NON VUOTA
-    private BoardListe(int n, int nQueens, SList<Integer> lr, SList<Integer> lc, SList<Integer> lda, SList<Integer> ldd, String conf)
+    private BoardListe(BoardListe b, int i, int j)
     {
-        dimScacchiera = n;
-        numRegine = nQueens;
-        lstRighe = lr;
-        lstColonne = lc;
-        lstDiagAsc = lda;
-        lstDiagDesc = ldd;
-        config = conf;
+        dimScacchiera = b.size();
+        numRegine = b.queensOn() + 1;
+        lstRighe = b.lstRighe.cons(i);
+        lstColonne = b.lstColonne.cons(j);
+        lstDiagAsc = b.lstDiagAsc.cons(i-j);
+        lstDiagDesc = b.lstDiagDesc.cons(i+j);
+        config = b.arrangement() + " " + COL.charAt(j) + ROW.charAt(i);
     }
 
 
@@ -58,23 +54,18 @@ public class BoardListe
 
     public boolean sottoAttacco(int i, int j)
     {
-        if(lstRighe.isNull() || lstColonne.isNull() || lstDiagAsc.isNull() || lstDiagDesc.isNull())
-            return false;
-        else    
-            return (lstRighe.reverse().car() == i || lstColonne.reverse().car() == j || lstDiagAsc.reverse().car() == i+j || lstDiagDesc.reverse().car() == i-j);   
+        return
+        (
+            IntSList.findElement(lstRighe, i) ||
+            IntSList.findElement(lstColonne, j) ||
+            IntSList.findElement(lstDiagAsc, i-j) ||
+            IntSList.findElement(lstDiagDesc, i+j)
+        ); 
     }   
 
     public BoardListe aggiungiRegina(int i, int j)
     {
-        return new BoardListe
-        (  dimScacchiera,
-           numRegine+1,
-           lstRighe.cons(i),
-           lstColonne.cons(j),
-           lstDiagAsc.cons(i+j),
-           lstDiagDesc.cons(i-j),
-           config
-        );
+        return new BoardListe(this, i, j);
     }
 
     //Restituisce la configurazione della scacchiera
@@ -88,8 +79,6 @@ public class BoardListe
     {
         return "[" + arrangement() + "]";
     }
-
-
 
     //------------------------------------------------------------------------------------------------------------//
     private static int numberOfCompletions( BoardListe b ) 
@@ -123,7 +112,7 @@ public class BoardListe
       public static void main( String args[] ) 
       {
     
-        System.out.println(numberOfSolutions(6));
+        System.out.println(numberOfSolutions(8));
 
       }
 
