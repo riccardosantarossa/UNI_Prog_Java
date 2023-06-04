@@ -92,7 +92,22 @@ public class SList<T>
             return car();                        
          else 
             return ( cdr().listRef(k-1) );        
-    }    
+    }   
+    
+    //Cerca un elemento all'interno della lista
+    public static boolean findElement(SList<Integer> lista, int el) 
+    {
+         boolean result = false;                   
+         for( int i=0; i<lista.length(); i++ )
+         {
+            if ( el == lista.listRef(i) ) 
+            {         
+               result = true;
+            }
+         }
+      
+         return result;
+    }
 
     //Procedura APPEND
     public SList<T> append( SList<T> lst)
