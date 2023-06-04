@@ -218,7 +218,7 @@ public class gioco15
          {
             a.spostaNumero();
 
-            //Stampa anche la configurazione sotto forma di matrice
+            //Stampa anche la configurazione sotto forma di matrici
             System.out.println("-------------------------------");
             stampa(sottobosco);
             System.out.println("-------------------------------");
