@@ -1,6 +1,7 @@
 package Altro;
 import Regine.Board;
 import java.util.*;
+import Liste.*;
 
 
 import Huffman.nodo;
@@ -9,7 +10,7 @@ public class esempiEsami
 {
     //ESERCIZI FATTI A LEZIONE, ESAME 2020
 
-    //es 2
+    //es2
     public static long recDP(int x, int y, int z)
     {
         long[][] mem = new long[x+1][z+1];
@@ -27,7 +28,6 @@ public class esempiEsami
 
         return mem[x][y];
     }
-
 
     /*es3
     public static String hanoiIter( Towers hts, int d ) 
@@ -65,7 +65,139 @@ public class esempiEsami
 
 
 
+    //ESERCIZI FATTI A LEZIONE, ESAME 2022
 
+    //ES1A
+    /*
+     *  public static boolean heapCheck(double[] v)
+    {
+        int n = v.length;
+        int j=1, i;
+
+        for (i = 1 ; i < n; i++) 
+        {
+           j = 2 * i; 
+
+           if((j<n && v[i] > v[j]))
+              return false;
+
+           j = (2*i) + 1;
+
+           if((j<n && v[i] > v[j]))
+              return false;
+        }
+
+        return true;
+    }
+     */
+    
+    //ES2B
+    public static int llds( double[] s ) 
+    {
+        int n = s.length;
+        int [][][] mem = new int[n+1][n+1][n+1];
+       
+        for (int k = 0; k <= n; k++) 
+        {
+            for (int i = 0; i <= n; i++) 
+            {
+                for (int j = 0; j <= n; j++) 
+                {
+                    mem[k][i][j] = UNKNOWN;
+                }
+            }
+        }
+       
+        return lldsMem( s, 0 , n, n, mem );
+    }
+       
+    private static int lldsMem( double[] s, int k , int i, int j, int [][][] mem ) 
+    {
+
+        if (mem[k][i][j] == UNKNOWN) 
+        {
+            if(k == s.length)
+                mem[k][i][j] = 0;
+            else if((i == s.length) || ((Math.min(s[i],s[j]) < s[k]) && (s[k] < Math.max(s[i],s[j]))))
+                mem[k][i][j] = Math.max(1 + lldsMem(s, k+1, j, k, mem), lldsMem(s, k+1, i, j, mem) );
+            else 
+                mem[k][i][j] = lldsMem( s, k+1, i, j, mem );
+        }
+
+        return mem[k][i][j];
+    }
+
+    //ES3B
+    public class Pair 
+    {
+        public final nodo node;
+        public final String path;
+       
+        public Pair(nodo n, String p ) 
+        {
+            node = n;
+            path = p;
+        }
+    } // class Pair
+
+    public static int codeSizeIter_( nodo root ) 
+    {
+        long bits = 0;
+        Stack<Pair> stack = new Stack<Pair>();
+        //stack.push(new Pair(root, ""));
+        do 
+        {
+            Pair current = stack.pop();
+            nodo n = current.node;
+            String path = current.path;
+    
+            if(n.foglia())
+                bits += path.length() * n.peso();
+            else
+            {
+                //stack.push( new Pair(n.destro(), path + "0"));
+                //stack.push(new Pair(n.sinistro(), path + "1"));
+            }
+                
+        } while (!stack.empty());
+    
+        return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
+    }
+
+    //ES4B
+    public class PairStack 
+    {
+        private SList<Pair> pairs;
+       
+        public PairStack() 
+        {
+            pairs = new SList<Pair>();
+        }
+       
+        public boolean empty() 
+        {
+            return pairs.isNull();
+        }
+       
+        public void push(Pair pair) 
+        {
+            pairs = pairs.cons(pair);
+        }
+       
+        public Pair peek() 
+        {
+            return pairs.car();
+        }
+       
+        public Pair pop() 
+        {
+            Pair p = pairs.car();
+            pairs = pairs.cdr();
+
+            return p;
+        }
+
+    } // class PairStack
 
     //-------------------------------------------------------------------------------------------------//
     // FILE ESEMPI D'ESAME
@@ -279,7 +411,7 @@ public class esempiEsami
                 int depth = current.depth;
                 
                 if(n.foglia())
-                  bits = depth * n.peso();
+                  bits += depth * n.peso();
                 else
                 {
                     //stack.push( new Frame(n.sinistro(), depth+1));
