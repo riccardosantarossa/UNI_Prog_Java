@@ -1,5 +1,5 @@
 package Regine;
-import Liste.IntSList;
+
 
 public class BoardListe 
 {
