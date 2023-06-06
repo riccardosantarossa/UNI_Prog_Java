@@ -1,5 +1,6 @@
 package Regine;
 import Liste.SList;
+import Regine.*;
 
 public class queens 
 {
