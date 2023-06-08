@@ -1,9 +1,6 @@
 package Altro;
-import Regine.Board;
 import java.util.*;
 import Liste.*;
-
-
 import Huffman.nodo;
 
 public class esempiEsami 
@@ -199,6 +196,57 @@ public class esempiEsami
 
     } // class PairStack
 
+
+    //ESERCIZI A LEZIONE, ESAMI MISTI
+
+    //esame 2020 es.4 
+    public class Towers
+    {
+        //Variabili di istanza
+        private final int n; 
+        private int[] rods;
+        private String moves;
+
+        public Towers(int d)
+        {
+            n = d;
+            rods = new int[n+1];
+            moves = "";
+        }
+
+        public void put(int disk, int rod)
+        {
+            rods[disk] = rod;
+        }
+
+        public void move(int disk, int dst)
+        {
+           moves += " " + rods[disk] + "->" + dst;
+        }
+
+        public int height() 
+        {
+            return n;
+        }
+
+        public int site(int disk) 
+        {
+            return rods[disk];
+        }
+
+        public int transit(int disk, int dst)
+        {
+            return (6 - site(disk) - dst);
+        }
+
+        public String moves()
+        {
+            return moves;
+        }
+    }
+
+
+
     //-------------------------------------------------------------------------------------------------//
     // FILE ESEMPI D'ESAME
 
@@ -270,7 +318,7 @@ public class esempiEsami
     }
 
     //ES3 (scrivo solo i due metodi, istanzio un oggetto board per non modificare il file della classe)
-    public static boolean isFreeRow(int i)
+    /*public static boolean isFreeRow(int i)
     {
         Board b = new Board(i);
         
@@ -281,7 +329,7 @@ public class esempiEsami
         }
 
         return true;
-    }
+    }*/
 
     public static void addQueen(String pos)
     {
