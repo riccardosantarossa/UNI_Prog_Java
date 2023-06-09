@@ -246,6 +246,122 @@ public class esempiEsami
     }
 
 
+    //ESAME 06/2011 es. 4
+    public static long f( int x, int y ) { // x, y ≥ 0
+        if ( (x < 2) || (y < 2) ) {
+        return x * y;
+        } else {
+        return f( x, y-1 ) + f( x-2, y ) + f( x-1, y+1 );
+        }
+        }
+
+    public static long fDP(int x, int y)
+    {
+        long[][] mem = new long[x+1][y+1];
+
+        for (int i = 0; i <= x; i++) 
+        {
+            for (int j = y; j > 0; j--) 
+            {
+                if( i < 2 || j < 2)
+                    mem[i][j] = i * j;
+                else
+                    mem[i][j] = mem[i][j-1] + mem[i-2][j] + mem[i-1][j+1];
+            }  
+        }
+
+        return mem[x][0];
+    }
+
+
+    //ESAME 07/2011 es.4
+    public static long g(int x, int y)
+    {
+        long[][] mem = new long[x+1][y+1];
+
+        for (int i = 0; i <= x; i++) 
+        {
+            for (int j = 0; j <= y; j++) 
+            {
+                mem[i][j] = UNKNOWN;
+            }
+        }
+
+        return gMem(x, y, mem);
+    }
+
+    public static long gMem(int x, int y, long[][] mem)
+    {
+        if(mem[x][y] == UNKNOWN)
+        {
+            if ( (x < 2) || (y < 2) ) 
+                mem[x][y] = x * y;
+            else 
+                mem[x][y] = f( x, y-1 ) + f( x-2, y ) + f( x-1, y+1 );
+        }
+
+        return mem[x][y];
+    }
+
+
+    //ESAME 06/2010 es.2
+    public static long fm( int i, int j ) {
+        long[][] h = new long[ i+j+1 ][];
+        for ( int u=0; u<h.length; u=u+1 ) {
+        h[u] = new long[ h.length-u ];
+        for ( int v=0; v<h[u].length; v=v+1 ) {
+        h[u][v] = UNKNOWN;
+        }}
+        return mem( i, j, h );
+        }
+    
+    public static long mem( int i, int j, long[][] h ) {
+        if ( h[i][j] == UNKNOWN ) {
+        if ( i+j < 2 ) {
+        h[i][j] = i+j;
+        } else if ( j == 0 ) {
+        h[i][j] = mem( 1, i-2, h ) + mem( 0, i-1, h );
+        } else if ( j == 1 ) {
+        h[i][j] = mem( 0, i, h ) + mem( i+1, 0, h );
+        } else {
+        h[i][j] = mem( i+2, j-2, h ) + mem( i+1, j-1, h );
+        }}
+        return h[i][j];
+        }
+        
+    
+    //ESAME 09/2010
+    public static long fuckIt( int i, int j, int k ) { // i, j, k ≥ 0
+        if ( i*j*k == 0 ) {
+        return 1;
+        } else {
+        return fuckIt( i-1, j, k ) + fuckIt( i, j-1, k ) + fuckIt( i, j, k-1 );
+        }}
+        
+    public static long fuckItDP( int i, int j, int k )
+    {
+        long[][][] mem = new long[i+1][j+1][k+1];
+
+        for (int l = 0; l <= i; l++) 
+        {
+            for (int l2 = 0; l2 <= j; l2++) 
+            {
+                for (int m = 0; m <= k; m++) 
+                {
+                    if(l * l2 * m == 0)
+                        mem[l][l2][m] = 1;
+                    else
+                        mem[l][l2][m] = mem[l-1][l2][m] + mem[l][l2-1][m] + mem[l][l2][m-1];
+
+                }   
+            }
+        }
+
+        return mem[i][j][k];
+    }
+
+
+    
 
     //-------------------------------------------------------------------------------------------------//
     // FILE ESEMPI D'ESAME
@@ -540,6 +656,12 @@ public class esempiEsami
             closestPair(new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1});
             System.out.print(commonStretches( "001100", "001100" ));
             System.out.print(matrSimm(new int[][]{{1,0,3}, {2,4,6}, {7,0,1}}));
+            System.out.println(f(7,8));
+            System.out.println(g(7,8));
         */
+
+            System.out.println(fuckIt(3,2,1));
+            System.out.println(fuckItDP(3,2,1));
+            
     }
 }
