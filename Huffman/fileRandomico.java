@@ -24,6 +24,6 @@ public class fileRandomico
     public static void main(String[] args) 
     {
         creaRandomFile("fileDiTesto\\out.txt");
-        huffman.comprimi("fileDiTesto\\out.txt", "fileDiTesto\\outCompresso.txt");   
+        Huffman1.comprimi("fileDiTesto\\out.txt", "fileDiTesto\\outCompresso.txt");   
     }
 }
